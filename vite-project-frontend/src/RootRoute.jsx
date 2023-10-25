@@ -23,7 +23,7 @@ const RootRoute = () => {
                     <button onClick={() => navigate("/players")}>
                         get all players
                     </button>
-                    <button onClick={() => navigate("/players/id")}>
+                    <button onClick={() => navigate("/players/id/:playerId")}>
                         get player by id
                     </button>
                     

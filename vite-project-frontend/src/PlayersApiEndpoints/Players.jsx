@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-
+import "./Players.css"
 
 const Players = () => {
     const navigate = useNavigate()
@@ -13,10 +13,11 @@ const Players = () => {
     
     const getAllPlayers = async () => {
         await axios
-            .get("https://api.cricapi.com/v1/players?apikey=94a7a756-d5fd-47f8-9d77-44d1f45b0b2f&offset=0")
+            .get("http://localhost:8080/api/players")
             .then((res) => {
-                console.log(res.data.data)
-                setAllPlayers(res.data.data)
+                console.log("rest api called -> ")
+                console.log(res.data)
+                setAllPlayers(res.data)
             })
             .catch((err)=> {
                 console.log(err)
@@ -34,7 +35,7 @@ const Players = () => {
                     <button onClick={() => navigate("/players")}>
                         get all players
                     </button>
-                    <button onClick={() => navigate("/players/id")}>
+                    <button onClick={() => navigate("/players/id/:playerId")}>
                         get player by id
                     </button>
                 </div>
@@ -54,7 +55,8 @@ const Players = () => {
                                     {
                                         console.log(player, key)
                                     }
-                                    <h1>{player.name}</h1>
+                                    <h4>{player.rank} - {player.name} : {player.country}</h4>
+                                    <button onClick={() => navigate(`/players/id/${player.id}`)}> call api with id.. </button>
                                 </div>
                             )
                         })
